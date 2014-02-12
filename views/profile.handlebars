@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+  <head>
+    <title>clodiem</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  </head>
+  <body>
+    <div class="profile_header">
+      <img src="http://lorempixel.com/100/100/people" class="profpic">
+      <div class="profile_header_body">
+        <h2>{{username}}</h2>
+        <p>{{description}}</p>
+        <div class="button_wrap">
+		  <div class="button"><a>Follow</a></div>
+		  <div class="button"><a>Message</a></div>
+	    </div>
+	  </div>
+      <div class="clear"></div>
+    </div>
+    <div class="profile_stats">
+      <div class="display">
+		<h3>{{followers.length}}</h3>
+		<p>Followers</p>
+	  </div>
+	  <div class="display">
+		<h3>{{following.length}}</h3>
+		<p>Following</p>
+	  </div>
+	  <div class="display">
+		<h3>{{posts.length}}</h3>
+		<p>Posts</p>
+	  </div>
+	  <div class="clear"></div>
+	</div>
+	
+	<div class="content">
+	  <div class="closet">
+		<div class="closet_inner">
+		  <h3>{{username}}'s Closet</h3>
+		  <div class="button_wrap">
+			<div class="button active">
+			  <a class="styles_button" href="#">Styles</a>
+			</div>
+			<div class="button inactive">
+			  <a class="posts_button" href="#">Posts</a>
+			</div>
+			<div class="button inactive">
+			  <a class="following_button" href="#">Following</a>
+			</div>
+			<div class="button inactive">
+			  <a class="followers_button" href="#">Followers</a>
+			</div>
+		  </div>
+		  
+		  
+		  <div class="items styles">
+		    {{#if styles.length}}
+		    
+			  {{#each styles}}
+			    <div class="item_wrapper">
+			      <a class="item_wrapper_link" title="{{title}}" href="#">
+				    <img src="{{img}}">
+				    <div class="item_label">{{title}}</div>
+				  </a>
+			    </div>
+			  {{/each}}
+			{{else}}
+			  <span>{{username}} hasn't created any styles yet</span>
+			{{/if}}
+		  </div>
+        <div class="style_contents items" style="display:none;">
+		  {{#each styles}}
+			<div class="style_posts" title="{{title}}" style="display:none;">
+			  <h3 class="style_header">{{title}} ({{posts.length}})</h3>
+			  {{#if styles.length}}
+				{{#each posts}}
+				  {{> post}}
+				{{/each}}
+			  {{else}}
+				<span>{{username}} hasn't put anything in this style yet</span>
+			 {{/if}}
+			</div>
+		  {{/each}}
+		</div>
+		<div class="items posts" style="display:none;">
+		  {{#if posts.length}}
+		    <h3 class="style_header">Posts ({{posts.length}})</h3>
+		    {{#each posts}}
+	          {{> post}}
+	        {{/each}}
+	      {{else}}
+	        <span>{{username}} hasn't made any posts yet</span>
+	      {{/if}}
+		</div>
+		<div class="items following" style="display:none;">
+		  {{#if following.length}}
+			<h3 class="style_header">Following ({{following.length}})</h3>
+			{{#each following}}
+			  {{> user}}
+			{{/each}}
+		  {{else}}
+		    <span>{{username}} isn't following anyone yet</span>
+		  {{/if}}
+		</div>
+		<div class="items followers" style="display:none;">
+		  {{#if followers.length}}
+		    <h3 class="style_header">Followers ({{followers.length}})</h3>
+		    {{#each followers}}
+		      {{> user}}
+		    {{/each}}
+		  {{else}}
+		    <span>{{username}} doesn't have any followers yet</span>
+		  {{/if}}
+		</div>
+	  </div>
+	</div>
+  </body>
+  
+  <script src="/js/jquery-1.11.0.js"></script>
+  <script src="/js/renderposts.js"></script>
+  <script src="/js/rendermenu.js"></script>
+  <script src="/js/rendersearchbar.js"></script>
+  <script src="/js/rendertopbar.js"></script>
+  <script src="/js/splitbackground.js"></script>
+  <script src="/js/likebuttons.js"></script>
+  <script src="/js/commentbuttons.js"></script>
+  <script src="/js/comments.js"></script>
+  <script src="/js/renderprofile.js"></script>
+  <script>
+	function setSizes() {
+	  rendertopbar(true);
+	  renderposts();
+	  buildmenu('{{username}}');
+	}
+	$(window).resize(function() {
+	  setSizes();
+	});
+	$(document).ready(function() {
+	  setSizes();
+	});
+	$(window).load(function() {
+	  setSizes();
+    });
+  </script>
+</html>

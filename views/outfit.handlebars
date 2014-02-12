@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <title>clodiem</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+  </head>
+  
+  <body>
+    <div class="content">
+      <div class="posts">
+        <!--Only one post in posts-->
+        {{#each posts}}
+		  {{> post}}
+		{{/each}}
+		<div class="post post_comments">
+		  <div class="comments_section">
+		    <div class="n">
+			  <textarea class="comment_box" placeholder="ADD COMMENT..."></textarea>
+			  <div class="button comment_button" style="float:right;margin-bottom:4px;">
+			    <a href="#">comment</a>
+			  </div>
+		    </div>
+		    <div class="clear"></div>
+		    <div class="comments">
+		    <!--Only one post in posts-->
+		    {{#each posts}}
+			  {{#each comments}}
+			    {{> comment}}
+			  {{/each}}
+			{{/each}}
+			</div>
+		  </div>
+		</div>
+	  </div>
+    </div>
+    
+    <script src="/js/jquery-1.11.0.js"></script>
+    <script src="/js/renderposts.js"></script>
+    <script src="/js/rendermenu.js"></script>
+    <script src="/js/rendersearchbar.js"></script>
+    <script src="/js/rendertopbar.js"></script>
+    <script src="/js/splitbackground.js"></script>
+    <script src="/js/likebuttons.js"></script>
+    <script src="/js/commentbuttons.js"></script>
+    <script src="/js/comments.js"></script>
+    <script>
+      function setSizes() {
+        rendertopbar(true);
+        renderpost();
+        rendercomments('{{username}}', '{{user_img}}');
+        buildmenu('{{username}}');
+      }
+      $(window).resize(function() {
+        setSizes();
+      });
+      $(document).ready(function() {
+        setSizes();
+        activatelikebuttons();
+        activatecommentbuttons();
+      });
+      $(window).load(function() {
+        setSizes();
+      });
+    </script>
+  </body>
+
+</html>
